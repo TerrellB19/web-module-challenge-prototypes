@@ -15,9 +15,24 @@
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
-
+function Person(name, age) {
+  this.stomach = [];
+  this.name = name;
+  this.age = age;
+  
 }
+Person.prototype.eat = function(edibleItem){
+  if(this.stomach.length < 10){
+    this.stomach.push(edibleItem)
+  }
+}
+  Person.prototype.poop = function(){
+     this.stomach = []; 
+  }
+  Person.prototype.toString = function(){
+    return `${this.name}, ${this.age}`
+  }
+
 
 
 /*
@@ -36,10 +51,22 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
-
+function Car(model, milesPerGallon) {
+  this.model = model;
+  this.milesPerGallon = milesPerGallon
+  this.tank = 0;
+  this.odometer = 0;
 }
-
+Car.prototype.fill = function(gallons){
+  this.tank = this.tank + gallons
+}
+Car.prototype.drive = function(miles){
+   this.odometer.push(miles)
+   const minusFuel = this.milesPerGallon / miles 
+   this.tank = this.tank - minusFuel
+   return
+}
+// ^ im not sure about this one, i didnt test it, kinda just winged it quickly ^
 
 /*
   TASK 3
@@ -49,18 +76,26 @@ function Car() {
         + Should return a string "Playing with x", x being the favorite toy.
 */
 
-function Baby() {
+function Baby(name, age, favoriteToy) {
+  this.name = name;
+  this.age = age;
+  this.favoriteToy = favoriteToy
+}
+Baby.prototype = Object.create(Person.prototype)
 
+Baby.prototype.play = function(){
+  return `Playing with ${this.favoriteToy}`
 }
 
 
 /* 
   TASK 4
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. new Binding,       it creats a new version of the constructor function with new objects
+  2. Implicit Binding,  invokes the object to the left side of the dot
+  3. Explicit Binding,  .call and .bind
+  4. Window Binding,    This is the fall back binding for all functions, and is most often 
+    identifiable when a function is called without using dot notation, otherwise known as free function invocation.
 */
 
 ///////// END OF CHALLENGE /////////
